@@ -14,13 +14,14 @@ public class PlayerController : MonoBehaviour
     public Rigidbody playerRB;
 
     // Variables de estado
-    private bool isOnGround;    
+    private bool isOnGround;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    // Variable de estado estoy cerca de un arbol
+    public bool isTouchTree = false;
 
-    }
+    // Variable de madera
+    public int wood;
+    
 
     // Update is called once per frame
     void Update()
@@ -44,7 +45,18 @@ public class PlayerController : MonoBehaviour
             isOnGround = false;
         }
 
+        /*if (isTouchTree == true && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            CutTree();
+        }*/
+
+        Debug.Log(wood);
     }
+
+    /*void CutTree()
+    {
+        
+    }*/
 
     private void OnCollisionStay(Collision collision)
     {
