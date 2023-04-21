@@ -65,6 +65,7 @@ public class AudioManager : MonoBehaviour
     {
         _audioSource.loop = false;
         _audioSource.clip = sounds.win;
+        _audioSource.Play();
     }
 
     /// <summary>
@@ -74,5 +75,6 @@ public class AudioManager : MonoBehaviour
     {
         _audioSource.loop = false;
         _audioSource.clip = sounds.lose;
+        _audioSource.Play();
     }
 }
