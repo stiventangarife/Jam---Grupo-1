@@ -1,16 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class PauseAndControls : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public GameObject canvasObj;
     private bool isPaused;
+    public GameObject canvasObj;
     public GameObject pauseButton;
     public GameObject playButton;
+    public TextMeshProUGUI woodPoints;
+    private PlayerController playerController;
 
+    private void Start()
+    {
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+    }
     void Update()
     {
+        //Actualiza el texto para llevar conteo de cantidad de recursos
+        woodPoints.text = "Madera: " + playerController.wood.ToString();
+
         if (Input.GetKeyDown(KeyCode.P))
         {
             UpdateGameState();            
