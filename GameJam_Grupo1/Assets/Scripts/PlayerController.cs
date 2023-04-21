@@ -9,12 +9,14 @@ public class PlayerController : MonoBehaviour
     private float verticalInput;
     private Vector3 _moveVector;
 
-    // Características dle jugador
-    private float speed = 5;
+    // Características del jugador
+    private float speed = 2;
     public Rigidbody playerRB;
 
     // Variables de estado
-    private bool isOnGround;    
+    private bool isOnGround;
+
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +25,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
@@ -38,10 +40,20 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction);
         playerRB.MovePosition(playerRB.position + _moveVector);
 
+        if(horizontalInput != 0 || verticalInput != 0)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
+
         if (Input.GetButtonDown("Jump") && isOnGround)
         {
-            playerRB.AddForce(Vector3.up * 300, ForceMode.Impulse);
+            playerRB.AddForce(Vector3.up * 250, ForceMode.Impulse);
             isOnGround = false;
+            animator.SetTrigger("Jump");
         }
 
     }
@@ -49,6 +61,10 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionStay(Collision collision)
     {
         isOnGround = true;
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        isOnGround = false;
     }
 
 }
